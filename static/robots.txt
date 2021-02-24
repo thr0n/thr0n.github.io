@@ -1,1 +1,3 @@
 User-agent: *
+
+sitemap: https://thr0n.github.io/sitemap.xml

@@ -8,6 +8,12 @@ module.exports = {
   siteMetadata: {
     siteTitleAlt: `thr0n's Blog`,
     siteTitle: `thr0n's Blog 🐧`,
+    siteUrl: `https://thr0n.github.io`,
+    siteLanguage: `en`,
+    siteImage: ``,
+    siteHeadline: `...`,
+    siteDescription: `...`,
+    author: `...`
   },
   plugins: [
     {
