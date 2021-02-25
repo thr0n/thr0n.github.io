@@ -3,9 +3,14 @@
 <url> <loc>https://thr0n.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://thr0n.github.io/how-to-solve-an-everyday-problem-with-node-js-gatsby-and-netlify</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/mock-external-api-calls-using-wiremock</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://thr0n.github.io/tags/ap-is</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://thr0n.github.io/tags/gatsby-js</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://thr0n.github.io/tags/jam-stack</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/tags/kotlin</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://thr0n.github.io/tags/react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/tags/spring-boot</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://thr0n.github.io/tags/testing</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
