@@ -2,29 +2,21 @@
 title: "Keep your tests green: Mock external API calls using WireMock"
 date: 2020-11-05
 slug: "/mock-external-api-calls-using-wiremock"
-canonicalUrl: "https://random-blog-about-curses.com"
 tags:
   - Kotlin
   - Spring Boot
   - Testing
 ---
 
-import { UnsplashAttribution } from "../../../src/components/UnsplashAttribution"
-
 When your software project is growing, chances are getting higher that you might want to (or have to 😉) send API calls to an external system you do not control but have to communicate with in order to use a service they provide.
 
-![notebook](./1.webp)
-<UnsplashAttribution photographer={{name: "Sean Lim", url: "https://unsplash.com/@seanlimm"}}/>
-
 Depending on your system's domain or your specific use case there are seemingly endless external services you could use. You may want to:
+
 - ensure that the visitor on your website isn't a bot (using "Google reCAPTCHA" or the like)
 - ask a geo information service for the latitude and longitude of a given address
 - add an item to a shopping cart service or many others
 
 Calling an external API during execution of your application is perfectly fine, because otherwise you won't be able to use their service at all. But since interacting with an external system always bears the risk of failures (downtimes, breaking changes, etc.) you will probably take actions to make your app resilient to failing API calls.
-
-![failed-test](./2.jpg)
-<UnsplashAttribution photographer={{name: "Sarah Kilian", url: "https://unsplash.com/@rojekilian"}}/>
 
 Speaking of external systems and failures: If you added some tests to your project (and i hope you did!) you do not want to send real API calls to any external system during your tests. Calling real APIs during test execution is a bad practice. In general you don't want your tests to break if an external service is unavailable or behaving strange. Moreover,I assume that you don't want to test an external API, but rather focus on your application.
 

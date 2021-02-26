@@ -1,8 +1,8 @@
 require(`dotenv`).config({
   path: `.env`,
-})
+});
 
-const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
+const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE;
 
 module.exports = {
   siteMetadata: {
@@ -10,10 +10,10 @@ module.exports = {
     siteTitle: `thr0n's Blog 🐧`,
     siteUrl: `https://thr0n.github.io`,
     siteLanguage: `en`,
-    siteImage: ``,
-    siteHeadline: `...`,
-    siteDescription: `...`,
-    author: `...`
+    siteImage: `/banner.png`,
+    siteHeadline: `thr0n's Blog`,
+    siteDescription: `Just my thoughts about technology, reports about private programming projects, and code snippets i'd like to share.`,
+    author: `hthr0n`,
   },
   plugins: [
     {
@@ -28,7 +28,7 @@ module.exports = {
           {
             title: `About`,
             slug: `/about`,
-          }
+          },
         ],
         externalLinks: [
           {
@@ -56,9 +56,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `thr0n's Blog 🐧`,
+        short_name: `thr0n's Blog`,
+        description: `Just my thoughts about technology, reports about private programming projects, and code snippets i'd like to share./categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
@@ -88,4 +88,4 @@ module.exports = {
       },
     },
   ].filter(Boolean),
-}
+};
