@@ -58,7 +58,7 @@ module.exports = {
       options: {
         name: `thr0n's Blog 🐧`,
         short_name: `thr0n's Blog`,
-        description: `Just my thoughts about technology, reports about private programming projects, and code snippets i'd like to share./categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        description: `Just my thoughts about technology, reports about private programming projects, and code snippets i'd like to share.`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
