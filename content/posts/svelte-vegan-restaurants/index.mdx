@@ -37,6 +37,42 @@ A push on the main branch in Github starts the build process on Netlify, where t
 
 ![Screenshot of vgnmap](./vgnmap.png "vgnmap")
 
+## Svelte Highlights
+
+...
+
+Reactive variables(?)
+
+```js
+$: themeLabel = theme === "light" ? "Lights off" : "Lights on";
+```
+
+Reactivity on lists
+
+```js
+// reactivity on lists
+$: restaurantsToShow = restaurants
+  .filter((r) => r.address.city === selectedCity)
+  .sort((a, b) =>
+    a.position[1] > b.position[1] ? 1 : a.position[1] < b.position[1] ? -1 : 0
+  );
+```
+
+conditional classes
+
+```js
+<div
+  class="restaurant-section"
+  class:restaurant-section-dark={theme === "dark"}>
+</div>
+```
+
+### Performance
+
+```java
+TODO: Lighthouse report
+```
+
 ## Future improvements
 
 In the future I may want to add and display more information about the restaurants.
