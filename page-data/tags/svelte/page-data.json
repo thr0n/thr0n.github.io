@@ -1,0 +1,5 @@
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tag-query-tsx",
+    "path": "/tags/svelte",
+    "result": {"data":{"allPost":{"nodes":[{"slug":"/find-a-vegan-restaurant-near-you-with-the-help-of-svelte","title":"Find a vegan restaurant near you - With the help of Svelte!","date":"04.01.2022","excerpt":"Trying out  Svelte  was on my bucket list of months or maybe even for years.\nEspecially after this  talk  by Rich Harris. When I was…","timeToRead":1,"description":"A small Svelte app that shows vegan restaurants on a map.","tags":[{"name":"Svelte","slug":"svelte"},{"name":"CMS","slug":"cms"},{"name":"APIs","slug":"ap-is"}]}]}},"pageContext":{"slug":"svelte","name":"Svelte","formatString":"DD.MM.YYYY"}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}

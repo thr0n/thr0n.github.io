@@ -1,1 +1,5 @@
-{"componentChunkName":"component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tags-query-tsx","path":"/tags","result":{"data":{"allPost":{"group":[{"fieldValue":"APIs","totalCount":1},{"fieldValue":"Gatsby.js","totalCount":1},{"fieldValue":"JAM Stack","totalCount":1},{"fieldValue":"Kotlin","totalCount":1},{"fieldValue":"Python","totalCount":1},{"fieldValue":"Raspberry Pi","totalCount":1},{"fieldValue":"React","totalCount":1},{"fieldValue":"Spring Boot","totalCount":1},{"fieldValue":"Testing","totalCount":1}]}},"pageContext":{}},"staticQueryHashes":["3090400250","3090400250","318001574"]}
+{
+    "componentChunkName": "component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-tags-query-tsx",
+    "path": "/tags",
+    "result": {"data":{"allPost":{"group":[{"fieldValue":"APIs","totalCount":2},{"fieldValue":"CMS","totalCount":1},{"fieldValue":"Gatsby.js","totalCount":1},{"fieldValue":"JAM Stack","totalCount":1},{"fieldValue":"Kotlin","totalCount":1},{"fieldValue":"Python","totalCount":1},{"fieldValue":"Raspberry Pi","totalCount":1},{"fieldValue":"React","totalCount":1},{"fieldValue":"Spring Boot","totalCount":1},{"fieldValue":"Svelte","totalCount":1},{"fieldValue":"Testing","totalCount":1}]}},"pageContext":{}},
+    "staticQueryHashes": ["2744905544","3090400250","318001574"]}
