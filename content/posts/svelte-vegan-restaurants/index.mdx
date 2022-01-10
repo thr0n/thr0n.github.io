@@ -15,6 +15,7 @@ When I was thinking about vegan restaurants in my hometown I finally found a sui
 I wanted to show my favourite vegan food locations on a map.
 That way I can remember where I've been and which restaurants I still want to go to. 
 I also wanted to display information such as the address or excerpts from the menu in a list 🍔🍕🍣 🌱.
+In addition, the list should focus on the selected restaurant on the map when clicked.
 
 ## Implementation
 
@@ -22,14 +23,14 @@ To store and provide the data about the restaurants, I use the content managemen
 In my current client project, I already work with another CMS, but I find Contentful very suitable for managing the restaurants.
 In particular, the Google Maps function integrated into Contentful was very helpful.
 With it, I can search for a restaurant and save the coordinates determined by Google Maps in the CMS.
-With a simple `GET` request, I can then retrieve the coordinates together with other restaurant data and show them in the frontend 🗺.
+With a simple `GET` request, I can then retrieve the coordinates together with other restaurant data like address, website, etc. and show them in the frontend 🗺.
 
 I created the Svelte project with `degit` according to these [instructions](https://svelte.dev/blog/svelte-for-new-developers).
 In addition, I use TypeScript and [SCSS](https://linguinecode.com/post/add-sass-svelte-js), which can be configured subsequently with little effort.
 The application itself consists mainly of a `GET` request to Contenful to read the restaurant data.
 I use Leaflet to display the map. 
 Now when I publish new restaurants in Contenful, they are visible in the frontend after a few seconds. 
-Oh, and have you already discovered dark mode? 🌚
+Oh, and have you already discovered the very simple dark mode? 🌚
 
 The application was [deployed](https://vgnmap.netlify.app/) on Netlify.
 A push on the main branch in Github starts the build process on Netlify, where the latest version of the project is then delivered:
@@ -40,7 +41,7 @@ A push on the main branch in Github starts the build process on Netlify, where t
 
 In preparation for the development of the application, I only spent a few hours reading the very good Svelte [tutorial](https://svelte.dev/tutorial/basics).
 So I would not be surprised if the code is not optimal in some places.
-However, I did recognise a few highlights from Svelte.
+However, I did recognise a few highlights from Svelte, especially compared to React or Vue.js.
 
 ### Reactive declarations
 
@@ -99,7 +100,8 @@ But that leads us directly to the section with the improvements I can make in th
 ## Future improvements
 
 I have just mentioned it, but I like to say it again.
-In the future, I would like to improve the performance on mobile devices! If you have any tips for improvement (especially for Leaflet), I'd definitely appreciate a message from you!
+In the future, I would like to improve the performance on mobile devices.
+If you have any tips for improvement (especially for Leaflet), I'd definitely appreciate a message from you!
 
 I would also like to add and display more information about the restaurants.
 For example, I am thinking of photos, ratings and opening hours.
