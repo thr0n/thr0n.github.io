@@ -1,0 +1,72 @@
+---
+title: "Gatsby & TypeScript & SCSS & vscode"
+date: 2022-01-12
+description: ...
+tags:
+  - gatsby
+  - typescript
+---
+
+Let's team up Visual Studio Code with Gatsby.js, TypeScript and SCSS!
+
+## TypeScript
+
+Just create a new `.tsx` file or rename an existing `.js` file of your choice. 
+Start adding an TypeScript `interface` a TypeScript `class` or whatever you need.
+See: https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/
+
+Error message: `index.d.ts(65, 1): This module is declared with using 'export =', and can only be used with a default import when using the 'esModuleInterop' flag.`
+
+Add `tsconfig.json` to project root:
+
+```json
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+    }
+}
+```
+
+## Add SCSS
+
+When I created my first TypeScript file in Gatsby.js I had some trouble importing a SCSS module file.
+
+```js
+import React from 'react'
+import { FaRandom } from 'react-icons/fa'
+import * as artistTileImageStyles from './artistTileImage.module.scss'
+
+interface ArtistTileImageProps {
+  imgSrc: string
+  artistName: string
+}
+
+export const ArtistTileImage = (props: ArtistTileImageProps) => {
+  return (
+    <>
+      {props.imgSrc ? <img src={props.imgSrc}/> : <FaRandom/>}
+      <div className={artistTileImageStyles.artistBar}>
+        <span className={artistTileImageStyles.spacer}>{props.artistName}</span>
+      </div>
+    </>
+  )
+}
+```
+
+Error message: `Cannot use JSX unless the '--jsx' flag is provided.ts(17004)`
+
+Add `"jsx": "react"` to `compilerOptions` in `tsconfig.json`.
+
+Error message: `Cannot find module './artistTileImage.module.scss' or its corresponding type declarations.ts(2307)`
+
+Create `src/global.d.ts`:
+
+```ts
+declare module '*.scss' {
+    const content: {[className: string]: string};
+    export = content;
+}
+```
+
+Works and compiles, hope this helps! 💪 🚀
+
