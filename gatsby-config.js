@@ -37,7 +37,7 @@ module.exports = {
           },
           {
             name: `LinkedIn`,
-            url: `https://www.linkedin.com/in/hendrik-t-54932377/`,
+            url: `https://www.linkedin.com/in/boelcke/`,
           },
           {
             name: `Twitter`,
