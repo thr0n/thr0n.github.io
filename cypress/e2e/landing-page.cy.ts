@@ -19,7 +19,7 @@ describe('Landing Page', () => {
     cy.get('header > div > div > a:nth-child(3)').should('have.attr', 'href').and('equal', 'https://twitter.com/hthr0n')
   })
   
-  it('show the blog section', () => {
+  it('shows the blog section', () => {
     cy.contains("Latest Posts")
   })
 })

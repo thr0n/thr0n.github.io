@@ -13,7 +13,7 @@ describe('About Page', () => {
   })
 
 
-  it('has an about page with subsections', () => {
+  it('show an image of me standing at a beach', () => {
     cy.visit('/about')
     cy.get('[alt="Hendrik, standing at the beach"]').should("be.visible")
   })
