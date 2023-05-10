@@ -3,14 +3,16 @@
   "name": "thr0n.github.io",
   "description": "Just another tech blog.",
   "version": "1.0.0",
-  "author": "Hendrik Thorun <hendrik.thorun@gmail.com>",
+  "author": "Hendrik Bölcke <hendrik.thorun@gmail.com>",
   "license": "0BSD",
   "starter-name": "gatsby-starter-minimal-blog",
   "scripts": {
     "build": "gatsby build",
+    "cypress:open": "cypress open --browser chrome --e2e",
+    "cypress:run": "CYPRESS_baseUrl=http://localhost:9000 cypress run --browser chrome",
+    "test:e2e": "CYPRESS_SUPPORT=y start-server-and-test develop http://localhost:8000 cypress:open",
+    "test:e2e:ci": "start-server-and-test serve http://localhost:9000 cypress:run",
     "develop": "gatsby develop",
-    "develop:cypress": "cross-env CYPRESS_SUPPORT=y yarn develop",
-    "build:cypress": "cross-env CYPRESS_SUPPORT=y yarn build",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -27,12 +29,15 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.1",
     "@types/node": "^18.16.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
     "cross-env": "^7.0.3",
+    "cypress": "^12.11.0",
     "gh-pages": "^5.0.0",
     "prettier": "^2.8.8",
+    "start-server-and-test": "^2.0.0",
     "typescript": "^5.0.4"
   }
 }
