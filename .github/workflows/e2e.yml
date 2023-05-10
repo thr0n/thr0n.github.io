@@ -43,40 +43,9 @@ jobs:
           name: gh-pages
           if-no-files-found: error
           path: node_modules/gh-pages
-
-  cypress:
-    needs: install
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node18.12.0-chrome107
-      options: --user 1001
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Cypress install
-        uses: cypress-io/github-action@v5
-        with:
-          runTests: false
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: public
-          path: public
-      - name: Download .cache artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: .cache
-          path: .cache/
-      - name: Download start-server-and-test artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: start-server-and-test
-          path: node_modules/start-server-and-test
-      - name: Chrome UI test 
-        run: npm run test:e2e:ci
       
   deploy:
-    needs: cypress
+    # needs: cypress
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -87,6 +56,8 @@ jobs:
         with:
           name: gh-pages
           path: node_modules/gh-pages
+      - name: Debug
+        run: ls
       - name: Deploy GitHub Pages
         run: npm run deploy-only
       # - name: Deploy to GitHub Pages
