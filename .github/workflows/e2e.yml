@@ -37,6 +37,12 @@ jobs:
           name: start-server-and-test
           if-no-files-found: error
           path: node_modules/start-server-and-test
+      - name: Save gh-pages folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: gh-pages
+          if-no-files-found: error
+          path: node_modules/gh-pages
 
   cypress:
     needs: install
@@ -74,24 +80,15 @@ jobs:
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      #- name: Checkout
-      #  uses: actions/checkout@v3
-      - name: Download build artifacts
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download gh-pages
         uses: actions/download-artifact@v3
         with:
-          name: public
-          path: public
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: public
-      #- name: Download .cache artifacts
-      #  uses: actions/download-artifact@v3
-      #  with:
-      #    name: .cache
-      #    path: .cache/
-      # - name: Deploy GitHub Pages
-      #   run: npm run deploy-only
+          name: gh-pages
+          path: node_modules/gh-pages
+      - name: Deploy GitHub Pages
+        run: npm run deploy-only
       # - name: Deploy to GitHub Pages
       #  uses: actions/deploy-pages@v2
       #  artifact-name: public
