@@ -45,7 +45,7 @@ jobs:
           path: node_modules/gh-pages
       
   deploy:
-    # needs: cypress
+    needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
