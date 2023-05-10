@@ -51,15 +51,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Download gh-pages
-        uses: actions/download-artifact@v3
-        with:
-          name: gh-pages
-          path: node_modules/gh-pages
-      - name: Debug
-        run: ls
-      - name: Deploy GitHub Pages
-        run: npm run deploy-only
+      # - name: Deploy GitHub Pages
+      #   run: npm run deploy-only
       # - name: Deploy to GitHub Pages
       #  uses: actions/deploy-pages@v2
       #  artifact-name: public
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: public
+          path: public
+      - name: Debug
+        run: ls
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+        with:
+          artifact-name: public
