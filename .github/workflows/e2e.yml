@@ -48,15 +48,15 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    #permissions:
+    #  pages: write      # to deploy to Pages
+    #  id-token: write 
+    #environment:
+    #  name: github-pages
+    #  url: ${{ steps.deployment.outputs.page_url }}
+    #steps:
+    #  - name: Checkout
+    #    uses: actions/checkout@v3
       # - name: Deploy GitHub Pages
       #   run: npm run deploy-only
       # - name: Deploy to GitHub Pages
@@ -67,8 +67,8 @@ jobs:
         with:
           name: public
           path: public
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-        with:
-          artifact_name: public
+      #- name: Deploy to GitHub Pages
+      #  id: deployment
+      #  uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+      #  with:
+      #    artifact_name: public
