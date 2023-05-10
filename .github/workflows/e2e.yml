@@ -48,6 +48,12 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -61,10 +67,8 @@ jobs:
         with:
           name: public
           path: public
-      - name: Debug
-        run: ls
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
         with:
-          artifact-name: public
+          artifact_name: public
