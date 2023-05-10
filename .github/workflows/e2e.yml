@@ -48,12 +48,12 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    #permissions:
-    #  pages: write      # to deploy to Pages
-    #  id-token: write 
-    #environment:
-    #  name: github-pages
-    #  url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     #steps:
     steps:
       - name: Test
