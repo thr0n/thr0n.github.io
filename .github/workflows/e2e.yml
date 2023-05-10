@@ -48,6 +48,9 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write
     steps:
@@ -59,7 +62,6 @@ jobs:
           name: public
           path: public
       - name: Deploy 🚀
-        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public # The folder the action should deploy.
