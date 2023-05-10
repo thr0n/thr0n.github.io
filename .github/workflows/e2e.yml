@@ -48,26 +48,17 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    
     permissions:
       contents: write
-    
     steps:
-      - name: Test
-        run: echo "?"
       - name: Checkout
-        uses: actions/checkout@v3
-      # - name: Deploy GitHub Pages
-      #   run: npm run deploy-only
-      # - name: Deploy to GitHub Pages
-      #  uses: actions/deploy-pages@v2
-      #  artifact-name: public
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: public
           path: public
       - name: Deploy 🚀
+        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public # The folder the action should deploy.
