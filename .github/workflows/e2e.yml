@@ -71,7 +71,7 @@ jobs:
       
   deploy:
     needs: cypress
-    if: github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifacts
