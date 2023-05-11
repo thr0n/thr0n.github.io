@@ -51,11 +51,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     steps:
-     #- name: Download build artifacts
-     #  uses: actions/download-artifact@v3
-     #  with:
-     #    name: public
-     #    path: public
+     - name: Download build artifacts
+       uses: actions/download-artifact@v3
+       with:
+         name: public
+         path: public
      - name: Deploy to GitHub Pages
        id: deployment
        uses: actions/deploy-pages@v2
