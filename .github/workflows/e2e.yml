@@ -80,9 +80,11 @@ jobs:
     needs: install
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+    
+    #environment:
+    #  name: github-pages
+    #  url: ${{ steps.deploy.outputs.page_url }}
+    
     #permissions:
     #  contents: write
     steps:
