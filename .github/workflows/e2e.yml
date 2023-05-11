@@ -97,7 +97,6 @@ jobs:
     #  contents: write
     steps:
       - name: Checkout
-        id: deployment
         uses: actions/checkout@v3
       - name: Debug
         run: echo "${{ steps.deploy.outputs.page_url }}"
