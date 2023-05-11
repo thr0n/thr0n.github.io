@@ -76,24 +76,27 @@ jobs:
         run: npm run test:e2e:ci    
       
   deploy:
-    needs: cypress
+    #needs: cypress
     # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
-    permissions:
-      contents: write
+    #permissions:
+    #  contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: public
-          path: public
-      - name: Deploy 🚀
         id: deployment
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: public
+        uses: actions/checkout@v3
+      - name: Debug
+        run: echo "${{ steps.deploy.outputs.page_url }}"
+      #- name: Download build artifacts
+      #  uses: actions/download-artifact@v3
+      #  with:
+      #    name: public
+      #    path: public
+      #- name: Deploy 🚀
+      #  id: deployment
+      #  uses: JamesIves/github-pages-deploy-action@v4
+      #  with:
+      #    folder: public
