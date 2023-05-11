@@ -75,9 +75,8 @@ jobs:
       
   deploy:
     needs: cypress
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: github-pages
     permissions:
       contents: write
     steps:
@@ -92,13 +91,3 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public
-        
-  deploy2:
-    needs: cypress
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Debug
-        run: "?"
