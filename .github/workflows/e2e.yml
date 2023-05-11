@@ -28,9 +28,13 @@ jobs:
       - name: Save public folder
         uses: actions/upload-artifact@v3
         with:
-          path: |
-            public
-            .cache
+          name: public
+          path: public
+      - name: Save .cache folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: .cache
+          path: .cache
       - name: Save start-server-and-test folder
         uses: actions/upload-artifact@v3
         with:
