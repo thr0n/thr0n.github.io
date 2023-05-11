@@ -1,11 +1,9 @@
 name: Build, test, and deploy
 on:
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -77,7 +75,7 @@ jobs:
       
   deploy:
     needs: cypress
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
