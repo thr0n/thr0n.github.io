@@ -55,8 +55,11 @@ jobs:
        uses: actions/download-artifact@v3
        with:
          path: public
+         name: public
      - name: Debug
        run: ls
      - name: Deploy to GitHub Pages
        id: deployment
        uses: actions/deploy-pages@v2
+       with:
+         artifact_name: public
