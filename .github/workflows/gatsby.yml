@@ -95,19 +95,13 @@ jobs:
 
   # Deployment job
   deploy:
-    #environment:
-    #  name: github-pages
-    #  url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build-and-test
     steps:
       - uses: actions/download-artifact@v3
-        #with:
-        #  name: public
-      - name: Debug
-        run: |
-          ls 
-          ls public
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
