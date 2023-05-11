@@ -86,6 +86,16 @@ jobs:
         with:
           path: ./public
           name: public
+      - name: Upload cache
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./.cache
+          name: .cache
+      - name: Upload cache
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./node_modules/start-server-and-test
+          name: start-server-and-test
         
   cypress:
     needs: build
