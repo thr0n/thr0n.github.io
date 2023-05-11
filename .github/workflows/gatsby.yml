@@ -98,8 +98,10 @@ jobs:
     needs: build-and-test
     steps:
       - uses: actions/download-artifact@v3
-        with:
-          name: public
+        #with:
+        #  name: public
+      - name: Debug
+        run: ls
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
