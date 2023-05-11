@@ -81,13 +81,17 @@ jobs:
         env:
           PREFIX_PATHS: 'true'
         run: ${{ steps.detect-package-manager.outputs.manager }} run build
+      - name: Debug
+        run: ls
+      - name: Debug
+        run: ls public
+      - name: Chrome UI test 
+        run: npm run test:e2e:ci
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           path: ./public
           name: public
-      - name: Chrome UI test 
-        run: npm run test:e2e:ci  
 
   # Deployment job
   deploy:
@@ -108,4 +112,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
         with:
-          artifact_name: public/artifact.tar
+          artifact_name: public
