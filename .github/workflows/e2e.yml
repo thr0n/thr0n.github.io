@@ -78,8 +78,9 @@ jobs:
   deploy:
     needs: cypress
     # if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment: github-pages
+    runs-on: ubuntu-latestenvironment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     permissions:
       contents: write
     steps:
@@ -91,6 +92,7 @@ jobs:
           name: public
           path: public
       - name: Deploy 🚀
+        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public
