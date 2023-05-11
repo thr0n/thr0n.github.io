@@ -85,13 +85,13 @@ jobs:
     #  name: github-pages
     #  url: ${{ steps.deploy.outputs.page_url }}
     
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+    #permissions:
+    #  pages: write      # to deploy to Pages
+    #  id-token: write   # to verify the deployment originates from an appropriate source
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    #environment:
+    #  name: github-pages
+    #  url: ${{ steps.deployment.outputs.page_url }}
     
     #permissions:
     #  contents: write
@@ -111,8 +111,8 @@ jobs:
       #  with:
       #    folder: public
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+      #- name: Deploy to GitHub Pages
+      #  id: deployment
+      #  uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
       #- name: Debug
       #  run: echo "${{ steps.deploy.outputs.page_url }}"
