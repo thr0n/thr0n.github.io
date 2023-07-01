@@ -40,8 +40,8 @@ const config: GatsbyConfig = {
             url: `https://www.linkedin.com/in/boelcke/`,
           },
           {
-            name: `Twitter`,
-            url: `https://twitter.com/hthr0n`,
+            name: `Mastodon`,
+            url: `https://nerdculture.de/@thr0n`,
           },
         ],
       },
