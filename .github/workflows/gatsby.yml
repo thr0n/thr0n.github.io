@@ -76,25 +76,23 @@ jobs:
   deploy:
     needs: cypress
     if: github.ref == 'refs/heads/main'
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
     steps:
-      #- name: Checkout
-      #  uses: actions/checkout@v3
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: public
           path: public
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./public
       - name: Deploy 🚀
         uses: actions/deploy-pages@v2
         id: deployment
-        with:
-          artifact_name: ./public
