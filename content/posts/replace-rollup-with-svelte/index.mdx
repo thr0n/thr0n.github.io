@@ -98,9 +98,15 @@ dist/assets/index-CPtvyui6.js   265.34 kB │ gzip: 84.48 kB
 
 As we can see, the build for the same application is two seconds faster with Vite than with Rollup. Furthermore: Vite also works noticeably faster in development mode! 💛
 
- ## References:
+### Netlify deployment issues 🚨
 
- For reference you can take a look at these commits:
+Two notes if you also deploy your application to Netlify:
+- Don't forget to update the names of your environment variables on netlify.app!
+- Vite places the build output in the `dist` folder. So you have to change your Netlify Deploment settings, otherwise you'll get a 404 error!
+
+## References:
+
+For reference you can take a look at these commits:
 - [b489e8c - Introduce vite](https://github.com/thr0n/vgnmap/pull/3/commits/b489e8ce0af15103a7777fd7ada1fbed1cdb4683)
 - [ab4e7b6 - Drop rollup, run prettier](https://github.com/thr0n/vgnmap/pull/3/commits/ab4e7b617aca7c498f4ef4e39e1952a66a379c2b)
 
