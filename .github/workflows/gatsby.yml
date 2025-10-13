@@ -29,8 +29,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: .cache
+          include-hidden-files: true
           if-no-files-found: error
-          path: ./.cache
+          path: .cache
       - name: Save start-server-and-test folder
         uses: actions/upload-artifact@v4
         with:
