@@ -59,17 +59,17 @@ jobs:
         with:
           runTests: false
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: public
           path: public
       - name: Download .cache artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: .cache
           path: .cache/
       - name: Download start-server-and-test artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: start-server-and-test
           path: node_modules/start-server-and-test
@@ -88,7 +88,7 @@ jobs:
       id-token: write
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: public
           path: public
