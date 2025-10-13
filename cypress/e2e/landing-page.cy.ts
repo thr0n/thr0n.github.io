@@ -9,7 +9,6 @@ describe('Landing Page', () => {
     cy.contains (/^Blog$/)
     cy.contains (/^GitHub$/)
     cy.contains (/^LinkedIn$/)
-    cy.contains (/^Mastodon$/)
     cy.contains("I'm Hendrik, Hamburg based software engineer")
   })
 

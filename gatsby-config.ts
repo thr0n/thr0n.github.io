@@ -39,10 +39,6 @@ const config: GatsbyConfig = {
             name: `LinkedIn`,
             url: `https://www.linkedin.com/in/boelcke/`,
           },
-          {
-            name: `Mastodon`,
-            url: `https://nerdculture.de/@thr0n`,
-          },
         ],
       },
     },
