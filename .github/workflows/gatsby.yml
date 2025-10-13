@@ -17,6 +17,8 @@ jobs:
       - run: node --version
       - run: npm install
       - run: npm run build
+      - run: ls
+      - run: ls .cache
       - name: Save public folder
         uses: actions/upload-artifact@v4
         with:
@@ -28,7 +30,7 @@ jobs:
         with:
           name: .cache
           if-no-files-found: error
-          path: .cache
+          path: ./.cache
       - name: Save start-server-and-test folder
         uses: actions/upload-artifact@v4
         with:
