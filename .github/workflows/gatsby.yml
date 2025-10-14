@@ -17,8 +17,6 @@ jobs:
       - run: node --version
       - run: npm install
       - run: npm run build
-      - run: ls
-      - run: ls .cache
       - name: Save public folder
         uses: actions/upload-artifact@v4
         with:
@@ -44,7 +42,7 @@ jobs:
           name: gh-pages
           if-no-files-found: error
           path: node_modules/gh-pages
-      
+  
   cypress:
     needs: install
     runs-on: ubuntu-24.04
@@ -68,13 +66,11 @@ jobs:
         with:
           name: .cache
           path: .cache/
-      - name: Download start-server-and-test artifacts
-        uses: actions/download-artifact@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          name: start-server-and-test
-          path: node_modules/start-server-and-test
-      - name: Chrome UI test 
-        run: npm run test:e2e:ci    
+          start: npm start
+          browser: chrome
       
   deploy:
     needs: cypress
