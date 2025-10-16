@@ -51,6 +51,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Use Node.js 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
       - name: Download start-server-and-test artifacts
         uses: actions/download-artifact@v4
         with:
