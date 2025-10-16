@@ -62,6 +62,11 @@ jobs:
         with:
           name: .cache
           path: .cache/
+      - name: Download start-server-and-test artifacts
+        uses: actions/download-artifact@v3
+        with:	
+          name: start-server-and-test	
+          path: node_modules/start-server-and-test
       - name: Run Cypress
         run: npm run test:e2e:ci
       
