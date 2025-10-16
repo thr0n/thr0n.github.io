@@ -30,20 +30,18 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           path: .cache
-      - name: Try to cypress
-        run: npm run test:e2e:ci
-      #- name: Save start-server-and-test folder
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: start-server-and-test
-      #    if-no-files-found: error
-      #    path: node_modules/start-server-and-test
-      #- name: Save gh-pages folder
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: gh-pages
-      #    if-no-files-found: error
-      #    path: node_modules/gh-pages
+      - name: Save start-server-and-test folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: start-server-and-test
+          if-no-files-found: error
+          path: node_modules/start-server-and-test
+      - name: Save gh-pages folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: gh-pages
+          if-no-files-found: error
+          path: node_modules/gh-pages
   
   cypress:
     needs: install
@@ -54,10 +52,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cypress install
-        uses: cypress-io/github-action@v6
-        with:
-          runTests: false
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -68,12 +62,8 @@ jobs:
         with:
           name: .cache
           path: .cache/
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm run serve
-          browser: chrome
-          wait-on: "http://127.0.0.1:9000"
+      - name: Run Cypress
+        run: npm run test:e2e:ci
       
   deploy:
     needs: cypress
