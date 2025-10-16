@@ -51,6 +51,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Download start-server-and-test artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: start-server-and-test
+          path: node_modules/start-server-and-test
       - run: npm run test:e2e:ci2
   
   deploy:
