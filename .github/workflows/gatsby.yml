@@ -55,11 +55,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.x
-      - name: Download start-server-and-test artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node_modules
-          path: node_modules
+          cache: 'npm'
+      - run: npm ci
       - run: npm run test:e2e:ci2
   
   deploy:
