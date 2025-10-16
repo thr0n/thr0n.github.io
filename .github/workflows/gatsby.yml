@@ -67,6 +67,8 @@ jobs:
         with:	
           name: start-server-and-test	
           path: node_modules/start-server-and-test
+      - run: ls
+      - run: ls node_modules
       - name: Run Cypress
         run: npm run test:e2e:ci
       
