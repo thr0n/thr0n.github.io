@@ -30,12 +30,12 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           path: .cache
-      - name: Save start-server-and-test folder
+      - name: Save node_modules
         uses: actions/upload-artifact@v4
         with:
-          name: start-server-and-test
+          name: node_modules
           if-no-files-found: error
-          path: node_modules/start-server-and-test
+          path: node_modules
       - name: Save gh-pages folder
         uses: actions/upload-artifact@v4
         with:
@@ -54,8 +54,8 @@ jobs:
       - name: Download start-server-and-test artifacts
         uses: actions/download-artifact@v4
         with:
-          name: node_modules/start-server-and-test
-          path: node_modules/start-server-and-test
+          name: node_modules
+          path: node_modules
       - run: npm run test:e2e:ci2
   
   deploy:
