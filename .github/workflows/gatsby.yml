@@ -31,12 +31,6 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           path: .cache
-      - name: Save node_modules
-        uses: actions/upload-artifact@v4
-        with:
-          name: node_modules
-          if-no-files-found: error
-          path: node_modules
       - name: Save gh-pages folder
         uses: actions/upload-artifact@v4
         with:
@@ -58,6 +52,16 @@ jobs:
           node-version: 22.x
           cache: 'npm'
       - run: npm ci
+      - name: Download build artifacts
+        uses: actions/download-artifact@v5
+        with:
+          name: public
+          path: public
+      - name: Download .cache artifacts
+        uses: actions/download-artifact@v5
+        with:
+          name: .cache
+          path: .cache/
       - run: npm run test:e2e:ci2
   
   deploy:
