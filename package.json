@@ -12,12 +12,14 @@
     "cypress:run": "CYPRESS_baseUrl=http://localhost:9000 cypress run --browser chrome",
     "test:e2e": "CYPRESS_SUPPORT=y start-server-and-test develop http://localhost:8000 cypress:open",
     "test:e2e:ci": "CYPRESS_SUPPORT=y npm run build && start-server-and-test serve http://localhost:9000 cypress:run",
+    "test:e2e:ci2": "start-server-and-test serve http://localhost:9000 cypress:run",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "deploy": "gatsby build && gh-pages -d public -b gh-pages",
-    "deploy-only": "gh-pages -d public -b gh-pages"
+    "deploy-only": "gh-pages -d public -b gh-pages",
+    "cy:run": "CYPRESS_baseUrl=http://localhost:9000 cypress run --browser chrome"
   },
   "dependencies": {
     "@lekoarts/gatsby-theme-minimal-blog": "6.2.6",
