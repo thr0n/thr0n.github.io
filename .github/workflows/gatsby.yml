@@ -39,6 +39,11 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           path: .cache
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
   
   cypress-test:
     runs-on: ubuntu-latest
