@@ -39,15 +39,6 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           path: .cache
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-          
-      - name: Deploy 🚀
-        uses: actions/deploy-pages@v4
-        id: deployment
   
   cypress-test:
     runs-on: ubuntu-latest
@@ -92,6 +83,13 @@ jobs:
       id-token: write
 
     steps:
+      - name: Use Node.js 22 with npm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
       - name: Download build artifacts
         uses: actions/upload-artifact@v4
         with:
