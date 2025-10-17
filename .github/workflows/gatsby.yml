@@ -83,18 +83,8 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Use Node.js 22 with npm cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
-
       - name: Download build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: public
           path: public
