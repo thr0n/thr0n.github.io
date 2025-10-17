@@ -74,7 +74,7 @@ jobs:
   
   deploy:
     needs: cypress-test
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
     runs-on: ubuntu-latest
