@@ -1,98 +1,99 @@
 name: Build, test, and deploy
+
 on:
   pull_request:
     branches: [ "main" ]
   push:
     branches: [ "main" ]
+
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22 with npm cache
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
-      - run: node --version
-      - run: npm install
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - run: npm ci
+        name: Install dependencies
+
       - run: npm run build
-      - name: Save public folder
-        uses: actions/upload-artifact@v3
+        name: Build Gatsby site 
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
         with:
           name: public
-          if-no-files-found: error
           path: public
+
       - name: Save .cache folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: .cache
+          include-hidden-files: true
           if-no-files-found: error
           path: .cache
-      - name: Save start-server-and-test folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: start-server-and-test
-          if-no-files-found: error
-          path: node_modules/start-server-and-test
-      - name: Save gh-pages folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: gh-pages
-          if-no-files-found: error
-          path: node_modules/gh-pages
-      
-  cypress:
-    needs: install
+  
+  cypress-test:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node18.12.0-chrome107
-      options: --user 1001
+    needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Cypress install
-        uses: cypress-io/github-action@v5
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22 with npm cache
+        uses: actions/setup-node@v4
         with:
-          runTests: false
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - run: npm ci
+        name: Install dependencies
+
+      - name: Download built site
+        uses: actions/download-artifact@v5
         with:
           name: public
           path: public
-      - name: Download .cache artifacts
-        uses: actions/download-artifact@v3
+
+      - name: Download built cache
+        uses: actions/download-artifact@v5
         with:
           name: .cache
-          path: .cache/
-      - name: Download start-server-and-test artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: start-server-and-test
-          path: node_modules/start-server-and-test
-      - name: Chrome UI test 
-        run: npm run test:e2e:ci    
-      
+          path: .cache
+
+      - run: npm run test:e2e:ci
+        name: Run Cypress E2E tests
+  
   deploy:
-    needs: cypress
+    needs: cypress-test
     if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
+
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: public
           path: public
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./public
+          
       - name: Deploy 🚀
         uses: actions/deploy-pages@v2
         id: deployment
