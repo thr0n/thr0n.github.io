@@ -2,7 +2,7 @@
   "private": true,
   "name": "thr0n.github.io",
   "description": "Just another tech blog.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Hendrik Bölcke <hendrik.thorun@gmail.com>",
   "license": "0BSD",
   "starter-name": "gatsby-starter-minimal-blog",
