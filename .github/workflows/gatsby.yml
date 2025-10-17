@@ -69,7 +69,7 @@ jobs:
           name: .cache
           path: .cache
 
-      - run: npm run test:e2e:ci2
+      - run: npm run test:e2e:ci
         name: Run Cypress E2E tests
   
   deploy:
