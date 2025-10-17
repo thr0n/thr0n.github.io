@@ -90,10 +90,10 @@ jobs:
           path: public
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./public
           
       - name: Deploy 🚀
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
         id: deployment
