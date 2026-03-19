@@ -2,7 +2,7 @@
   "private": true,
   "name": "thr0n.github.io",
   "description": "Just another tech blog.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Hendrik Bölcke <hendrik.thorun@gmail.com>",
   "license": "0BSD",
   "starter-name": "gatsby-starter-minimal-blog",
@@ -17,27 +17,28 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "deploy": "gatsby build && gh-pages -d public -b gh-pages",
-    "deploy-only": "gh-pages -d public -b gh-pages"
+    "deploy-only": "gh-pages -d public -b gh-pages",
+    "cy:run": "CYPRESS_baseUrl=http://localhost:9000 cypress run --browser chrome"
   },
   "dependencies": {
-    "@lekoarts/gatsby-theme-minimal-blog": "^6.1.1",
-    "gatsby": "^5.9.1",
-    "gatsby-plugin-feed": "^5.9.0",
-    "gatsby-plugin-manifest": "^5.9.0",
-    "gatsby-plugin-sitemap": "^6.9.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@lekoarts/gatsby-theme-minimal-blog": "6.2.6",
+    "gatsby": "5.15.0",
+    "gatsby-plugin-feed": "5.15.0",
+    "gatsby-plugin-manifest": "5.15.0",
+    "gatsby-plugin-sitemap": "6.15.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.1",
-    "@types/node": "^20.1.2",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
-    "cross-env": "^7.0.3",
-    "cypress": "^12.12.0",
-    "gh-pages": "^5.0.0",
-    "prettier": "^2.8.8",
-    "start-server-and-test": "^2.0.0",
-    "typescript": "^5.0.4"
+    "@types/jest": "30.0.0",
+    "@types/node": "24.7.2",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.1",
+    "cross-env": "10.1.0",
+    "cypress": "15.4.0",
+    "gh-pages": "6.3.0",
+    "prettier": "3.6.2",
+    "start-server-and-test": "2.1.2",
+    "typescript": "5.9.3"
   }
 }
