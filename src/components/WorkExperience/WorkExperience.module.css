@@ -1,0 +1,82 @@
+.wrapper {
+  margin: 2rem 0;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry {
+  position: relative;
+  padding: 0 0 2rem 2rem;
+}
+
+.entry::before {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 0.85rem;
+  bottom: -0.5rem;
+  width: 2px;
+  background: #e8e8e8;
+}
+
+.entry:last-child {
+  padding-bottom: 0;
+}
+
+.entry:last-child::before {
+  display: none;
+}
+
+.marker {
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: #333;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.card {
+  padding: 0.1rem 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.meta {
+  margin: 0.35rem 0 0.75rem;
+  color: #666;
+  font-size: 0.92rem;
+}
+
+.skillList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #444;
+}
