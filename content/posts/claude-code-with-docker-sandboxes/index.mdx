@@ -1,0 +1,197 @@
+---
+title: Claude Code in Docker Sandboxes 🇩🇪
+slug: "claude-code-in-docker-sandboxes-de"
+date: 2026-06-26
+description: Claude Code im Automode - aber bitte sicher
+canonicalUrl: https://thr0n.github.io/blog/claude-code-in-docker-sandboxes-de/
+tags:
+  - Security
+  - Docker
+  - Claude Code
+  - Agentic Engineering
+---
+
+> This article was also published in [English](/claude-code-in-docker-sandboxes)!
+
+Seit dem Aufkommen generativer KI finde ich es zunehmend schwerer, verlässliche Informationen zu finden.
+Früher konnte ich einfacher bewerten, ob mir der Inhalt eines Stack Overflow Threads oder eines Tutorials weiterhilft.
+Für viele Themen war mir immer klar, wo ich nach Hilfe suchen musste.
+Heute sind viele Quellen dazugekommen, deren Qualität ich nur schwer einschätzen kann.
+Darum möchte ich heute bewusst einen Schritt zurückgehen, mich in das Thema "Claude Code, aber sicher" einarbeiten und die dabei gesammelten Erfahrungen teilen.
+
+## Was bisher geschah: 
+Bis vor Kurzem hatte ich mit dem Thema Agentic Engineering nur wenig Berührungspunkte:
+Gespräche auf der Arbeit und im Freundeskreis, vereinzelte Podcast-Episoden und LinkedIn Beiträge.
+Besonders letztere erschienen mir aber oft oberflächlich und hype-getrieben und ohne wirklich Substanz.
+
+Kürzlich durfte ich im Arbeitskontext aber einen zweitägigen Workshop zu Agentic Engineering besuchen.
+Dort wurde relativ naiv einfach `claude` im Terminal gestartet und man hat den Agenten machen lassen.
+Der Referent sprach zwar viel von "Guardrails", ließ Claude Code aber weitestgehend einfach im Automode laufen, ohne wirklich auf mögliche Konsequenzen hinzuweisen.
+
+Hier lauert aber eine nicht zu unterschätzende Gefahr: `claude` wird per default mit meinen vollen Nutzerberechtigungen im Host-System gestartet. Das bedeutet konkret:
+- **Dateisystemzugriff** auf alles, worauf mein User Zugriff hat. Also in der Regel mein komplettes Home-Verzeichnis inklusive `~/.ssh`, `~/.aws`, `.env`-Dateien usw.
+- **Netzwerkzugriff ohne Einschränkung**: beliebige URLs, Downloads, ausgehende Verbindungen, Exfiltrieren von Credentials
+- **Prozessausführung:** Skripte, Shell-Befehle, Systemeinstellungen ändern, Package-Installer, Anlegen von Cronjobs
+- **Zugriff auf alle Umgebungsvariablen** meiner Shell, einschließlich API Keys
+
+Man stelle sich vor, ein KI-Agent führt versehentlich ein `rm -rf` im falschen Verzeichnis aus, verändert die Git-Konfiguration oder gibt eine `.env`-Datei preis. Nichts davon geschieht aus böser Absicht, aber all das ist möglich, wenn der Agent uneingeschränkten Zugriff auf das Host-System hat.
+
+Ein ziemlich hoher Preis für den Automode, dessen Vorteil vor allem darin liegt, dass man nicht mehr jede einzelne Aktion bestätigen muss (*confirmation fatigue*).
+
+Die Docker Sandbox setzt genau hier an: Der Agent lebt in einem Container mit definierter Netzwerk-Policy, isoliertem Dateisystem und ohne Zugriff auf Host-Secrets.
+Es muss nicht mehr jede Aktion beurteilt werden, die Grenzen wurden vorab gesetzt.
+
+## Docker Sandboxes
+Auf LinkedIn habe ich von einem ehemaligen Kollegen (Shoutout an Stefan!) gelesen, dass er Docker Sandboxes nutzt und er begeistert ist.
+Für mich Grund genug, mich selbst mit diesem Thema zu beschäftigen!
+
+Dabei bin ich wieder auf das Problem vom Anfang gestoßen: Welche Quelle ist seriös? Welche hilft mir weiter?
+Natürlich greife ich zuerst auf die offizielle [Docker Sandboxes Dokumentation](https://docs.docker.com/ai/sandboxes/) zu.
+Für den Einstieg wollte ich aber einen ersten Überblick, gerne in Videoform.
+Auf Youtube sind in den letzten Monaten diverse Videos erschienen, sodass die Auswahl schwer fiel.
+Ich habe mich für ein Video mit durchschnittlich vielen Views und guten Bewertungen entschieden.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kNGXuIPXR24?si=K4F5-3_LAedCqEPV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+Das Video war zu 75 % ein Glückstreffer.
+Der Creator hat nochmal grob das Konzept erklärt, ist ein wenig die Dokumentation für mich durchgegangen und hat mir ein Getting Started gegeben.
+Die Verwendung eines lokalen Modells war für mich jedoch nicht relevant.
+
+## Mein Setup:
+
+Die Docker Sandboxes Installation verlief reibungslos:
+
+```bash
+brew install docker/tap/sbx    # sbx CLI installieren
+sbx login                      # mit Docker-Account einloggen
+sbx secret set -g anthropic    # Anthropic API Key hinterlegen
+```
+
+Beim ersten Login wird nach der Standard-Netzwerk-Policy gefragt:
+
+```
+1. Open        - Alle Verbindungen erlaubt
+2. Balanced    - Default deny, gängige Dev-Domains erlaubt
+3. Locked Down - Alles geblockt, außer explizit erlaubten Domains
+```
+
+Ich wähle **Balanced**. Das erlaubt AI-Provider-APIs, gängige Package-Manager und GitHub, blockiert aber alles andere.
+
+Danach lässt sich die erste Docker Sandbox direkt aus dem Projektverzeichnis starten:
+
+```bash
+cd ~/mein-projekt
+sbx run claude
+```
+
+## Das sbx Dashboard
+
+Parallel dazu empfehle ich, das sbx-Dashboard in einem separaten Terminal laufen zu lassen:
+
+```bash
+sbx   # öffnet das interaktive Dashboard
+```
+
+Dort ist zu sehen:
+- Welche Sandboxes gerade laufen (mit Auswahl per Pfeiltasten)
+- `i` zeigt Details: Name, Agent, Status, gemountete Verzeichnisse, Ressourcenverbrauch
+- Live-Log aller erlaubten und geblockten Netzwerkanfragen
+
+Gerade der Netzwerk-Tab ist überraschend aufschlussreich.
+Dort sieht man in Echtzeit, welche Verbindungen Claude aufbaut:
+
+![sbx Dashboard](./sbx-dashboard.png)
+
+## Meine Erfahrungen nach einem halben Arbeitstag:
+In der Sandbox ist zunächst ein `/login` in Claude notwendig.
+Claude Code startet dann per default mit `--dangerously-skip-permissions`. Das ist bewusst so, weil die Sandbox selbst die Sicherheitsgrenze ist. Man ist damit nicht zu 100 % vor allen Risiken geschützt, aber der Blast Radius wird deutlich reduziert.
+Die Repository-Analyse auf Basis eines Prompts (im Wesentlichen der Inhalt meiner aktuellen User Story) funktioniert wie gewohnt und auch die Generierung von Code und Testklassen läuft durch.
+
+Schnell stieß ich aber auf das erste Problem: Der neu generierte Integrationstest kann nicht ausgeführt und die Lösung so nicht automatisch verifiziert werden. 
+
+```bash
+The ~/.m2 directory doesn't exist — Maven hasn't been run yet in this environment, so no local repository has been created.
+```
+
+Das `~/.m2` Verzeichnis existiert nicht und somit sind keine gecachten Dependencies verfügbar.
+Dazu kommt: Die Netzwerk-Policy blockiert den Zugriff auf `repo.maven.apache.org`, sodass der Maven Wrapper Maven nicht bootstrappen konnte.
+
+Jetzt habe ich zwei Möglichkeiten:
+Den Test selbst ausführen (Claude gibt mir den genauen `mvnw`-Befehl) 
+oder Claude die nötigen Berechtigungen erteilen.
+Da ich einen Zugriff auf `repo.maven.apache.org` und das lokale `~/.m2/repository` für unbedenklich halte,
+entscheide ich mich für Letzteres.
+
+**Wichtiger Hinweis zu `~/.m2/settings.xml`:** Claude schlug vor, neben dem Repository-Verzeichnis auch die `settings.xml` zu mounten. Da diese aber Credentials für private Repositories enthalten kann, mounte ich explizit nur `~/.m2/repository`. Die `settings.xml` bleibt außen vor.
+
+## Neue Sandbox mit m2-Mount
+
+Einem laufenden Container können nachträglich keine neuen Mounts hinzugefügt werden.
+Ich muss also die bestehende Sandbox löschen und eine neue erstellen.
+
+Bevor ich das tue, lasse ich Claude den bisherigen Kontext zusammenfassen:
+
+```
+Summarize what we've done so far and what's next
+```
+
+Claude fasst zusammen: analysiertes Problem, Ergebnisse, umgesetzter Code und vor allem die Liste der Blocker inklusive Ursachen und Lösungswegen. Mit `/memory` lässt sich dieser Kontext persistieren.
+
+**Achtung:** Der `/memory`-Kontext wird standardmäßig im Container gespeichert und ist damit weg, wenn der Container gelöscht wird. Vor dem nächsten Schritt unbedingt prüfen, ob der Kontext im Projektverzeichnis oder in `~/.claude/MEMORY.md` auf dem Host gelandet ist. Ich bin darauf hereingefallen und habe den Kontext verloren. Da in der Session aber noch nicht viel passiert war, hielt sich der Schaden in Grenzen.
+
+Sandbox löschen und neu erstellen (mit `~/.claude/` als zusätzlichem Verzeichnis):
+
+```bash
+sbx rm <sandbox-name>
+
+sbx create claude --name shop-dev \
+  "$(pwd)" \              # Projektverzeichnis
+  ~/.m2/repository:ro \   # Maven-Cache readonly
+  ~/.claude/              # Claude-Verzeichnis
+```
+
+Danach starten:
+
+```bash
+sbx run shop-dev
+```
+
+Den verlorenen Kontext rekonstruiere ich, indem ich Claude bitte, die vorhandenen Änderungen im Projekt anzusehen und daran anzuknüpfen.
+
+## Netzwerkzugriff nachträglich erlauben
+
+Claude versucht, den Integrationstest zu starten, scheitert aber erneut, weil Maven Wrapper Maven herunterladen will und der Netzwerkzugriff immer noch geblockt ist (im sbx-Dashboard gut nachvollziehbar).
+
+Das lässt sich in einem separaten Terminal ohne Neustart der Sandbox lösen:
+
+```bash
+sbx policy allow network --sandbox shop-dev repo.maven.apache.org
+```
+
+Danach in Claude einfach:
+
+```
+Try it again
+```
+
+Maven wird installiert. Dann stellt Claude fest, dass unsere interne Artefakt-Registry ebenfalls nicht erreichbar ist. Der fehlgeschlagene Request ist im Dashboard sichtbar. Da Claude keine Credentials für die Registry hat (und haben soll), löst er das selbständig: Er erstellt eine eigene `settings.xml`, die das gemountete `~/.m2/repository` als lokales `file://`-Repository einbindet.
+
+Danach laufen alle Tests durch.
+
+## Fazit
+
+Das Ergebnis auf diesem Branch könnte ich jetzt wie gewohnt reviewen (oder von einem Agenten reviewen lassen) nach GitHub pushen und einen Pull Request erstellen.
+
+Natürlich erfordert dieses Setup etwas Konfigurationsaufwand: Verzeichnis-Mounts, Netzwerk-Policies, einmaliges Setup. Das lässt sich mit einem Bash-Alias oder Wrapper-Skript vereinfachen, ist aber nicht ganz trivial.
+
+Was mich aber am meisten Zeit gekostet hat, war eine Halluzination von Claude, der mir einen nicht existierenden `settings.json`-Eintrag für automatische Mounts vorschlug. Das hat mich einen brauchbaren Kontext gekostet und ist ein gutes Beispiel dafür, warum man KI-Vorschläge zur eigenen Toolchain-Konfiguration immer verifizieren sollte.
+
+Insgesamt zeigt der Versuch aber eindrücklich, was Docker Sandboxes leisten: Per default ist nur das gewählte Arbeitsverzeichnis und eine klar definierte Menge an URLs erreichbar. Alles andere muss explizit freigegeben werden.
+
+In der Sandbox-Umgebung arbeite ich jetzt deutlich entspannter mit Claude Code. Gleichzeitig wird einem durch die Restriktionen sehr klar vor Augen geführt, wie viele Requests und Dateioperationen Claude im Automode ohne Sandbox einfach so ausführt.
+
+Meiner Meinung nach ist das ein guter Ansatz, um sich als Entwickler etwas Kontrolle über das eigene System und die Ressourcen innerhalb der Organisation zurückzuholen. Den Konfigurationsaufwand ist es mir allemal wert. Seit ich das Dashboard regelmäßig neben Claude Code laufen lasse, fühlt sich die Arbeit deutlich kontrollierter an.
+
+---
+
+Wie bewertet ihr das Setup? Kennt ihr einen besseren Ansatz zum Mounten weiterer Verzeichnisse? Habt ihr grundsätzliche Tipps zum Thema Agentic Engineering und Umgang mit Claude Code? Ich freue mich auf euer Feedback!
